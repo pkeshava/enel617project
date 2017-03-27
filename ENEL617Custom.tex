@@ -1,0 +1,76 @@
+% ENEL 617 Radio Frequency Integrated Circuits Project Report
+% Pouyan Keshavarzian
+% Winter 2017
+% Master's of Science in Electrical Engineering studies
+
+%-------------------------------------------------------------------------------
+% DOC SETUP
+\documentclass{article}                                                         % document type
+\usepackage[margin=0.7in]{geometry}                                             % Set margins
+\usepackage{hyperref}                                                           % Enables typsetting of hyperlinks
+\usepackage{float}                                                              % Required to keep images where they are put
+\usepackage{graphicx}                                                           % Required for the inclusion of images
+\usepackage{listings}                                                           % Required for the inclusion of source code
+\usepackage{mathtools}                                                          % Math looks pretty. Main backbone is amsmath
+\usepackage{enumitem}                                                           % Required to use different characters for enumerated lists
+\usepackage{multirow}                                                           % Create tablular cells spanning multiple rows
+\usepackage[toc]{glossaries}                                                    % Create glossary
+\usepackage[titletoc]{appendix}                                                 % Create Appendix
+\usepackage{wrapfig}                                                            % Needed for wraping text around a figure
+\usepackage{subfigure}                                                          % Subfigures
+%\usepackage[]{mcode}                                                           % Matlab code
+\setlength\parindent{0pt}                                                       % Removes all indentation from paragraphs
+\providecommand{\e}[1]{\ensuremath{\times 10^{#1}}}                             % Use scientific notation
+%\usepackage{times}                                                             % Uncomment to use the Times New Roman font
+\usepackage{pdfpages}                                                           % Simplifies inclusion of external multi-page pdfs into document
+\loadglsentries[main]{glossary}                                                 % Glossary
+\makeglossaries
+\usepackage[backend=bibtex, firstinits=false, style=ieee]{biblatex}
+\addbibresource{Bibliog.bib}
+\usepackage{verbatim}                                                           % Does things verbatim?? For example \verbatiminput{appendices/GuitarTunerApp.mc}. Also adds \begin{comment}. Also reporduces text verbatum
+%-------------------------------------------------------------------------------
+%----------------------------------------------------------------------------------------
+%	DOCUMENT INFORMATION
+%----------------------------------------------------------------------------------------
+  \title{\textsc{\textbf{617 WINTER 2017 PROJECT REPORT}}} % Title
+\author{\textsc{Millimeter Wave Double Balanced Gilbert-Type Mixer}
+\\ \textsc{Pouyan Keshavarzian}}
+\date{\today} % Date for the reports
+\begin{document}
+\maketitle % Insert the title, author and date
+\newpage
+%----------------------------------------------------------------------------------------
+%	Table of Contents and Figures
+%----------------------------------------------------------------------------------------
+% Add tables and lists as required
+\tableofcontents
+\listoffigures
+\listoftables
+%-------------------------------------------------------------------------------
+\newpage
+%----------------------------------------------------------------------------------------
+%	GLOSSARY
+%----------------------------------------------------------------------------------------
+\section{Glossary}
+\printglossary[title=Terms Acronyms and Abbreviations]
+\newpage
+%----------------------------------------------------------------------------------------
+%	SECTION
+%----------------------------------------------------------------------------------------
+\section{PROJECT MOTIVATION}
+
+
+\newpage
+%----------------------------------------------------------------------------------------
+%	REFERENCES
+%----------------------------------------------------------------------------------------
+\section{References}
+\printbibliography[heading=none]
+\begin{appendices}
+
+%----------------------------------------------------------------------------------------
+%	APPENDIX
+%---------------------------------------------------------------------------------------
+\end{appendices}
+
+\end{document}
