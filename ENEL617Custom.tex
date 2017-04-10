@@ -9,6 +9,7 @@
 \usepackage[margin=0.7in]{geometry}                                             % Set margins
 \usepackage{hyperref}                                                           % Enables typesetting of hyperlinks
 \usepackage{float}                                                              % Required to keep images where they are put
+\usepackage[dvipsnames]{xcolor}                                                 % More colors!
 \usepackage{graphicx}                                                           % Required for the inclusion of images
 \usepackage{listings}                                                           % Required for the inclusion of source code
 \usepackage{mathtools}                                                          % Math looks pretty. Main backbone is amsmath
@@ -28,7 +29,6 @@
 \usepackage[backend=bibtex, firstinits=false, style=ieee]{biblatex}
 \addbibresource{Bibliog.bib}
 \usepackage{verbatim}                                                           % Does things verbatim?? For example \verbatiminput{appendices/GuitarTunerApp.mc}. Also adds \begin{comment}. Also reporduces text verbatum
-
 %-------------------------------------------------------------------------------
 %----------------------------------------------------------------------------------------
 %	DOCUMENT TITLE PAGE
@@ -73,21 +73,25 @@ and the achieved final results are outlined in Table ~\ref{table:goalsnresults}.
     \hline
     Supply Voltage & 1.8V & 0.85V \\
     \hline
-    Power Consumption & 5mW & $\approx$ 4.8mW\\
+    Power Consumption & 5mW & $\approx$ \textbf{\textcolor{OliveGreen}{4.8mW}}\\
     \hline
-    Gain (dB)   & 5.4 & $\approx$ -13dB \\
+    Gain (dB)   & 5.4 & $\approx$ \textbf{\textcolor{Red}{-13 dB}} \\
     \hline
-    Input Match  & 50$\Omega$ & 45.5 + j0.1 $\Omega$ \\
+    Input Match  & 50$\Omega$ & \textbf{\textcolor{OliveGreen}{45.5 + j0.1$\Omega$}} \\
     \hline
-    Output Match & 730$\Omega$ & 48.9 + j0.1$\Omega$ \\
+    Output Match & 730$\Omega$ & \textbf{\textcolor{Orange}{48.9 + j0.1$\Omega$}}\\
     \hline
-    NF & 10dB & $\approx$ 16db \\
+    NF & 10dB & $\approx$ \textbf{\textcolor{Red}{16 dB}}\\
+    \hline
+    P1dB & -- & $\approx$ 1.5dB  \\
+    \hline
+    IP3 & -- & $\approx$ 9.5dB  \\
     \hline
   \end{tabular}
   \caption{Mixer Design Goals}
   \label{table:goalsnresults}
 \end{table}
-The original values were generated based on a few simple simulations and a power budget provided by Dr. Belostotski. Once the Id-gm
+The original values were generated based on a few simple simulations/calculations and a power budget provided by Dr. Belostotski. Once the Id-gm
 characteristics were understood from simulation, the gain estimate was calculated using the following equation.
 \begin{equation}
   \label{eq:idealgain}
