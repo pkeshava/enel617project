@@ -1,0 +1,296 @@
+
+signal            OP("/M2" "??")
+
+beff                105.1m          
+betaeff             132.1m          
+cbb                   1.162f        
+cbd                  39.94a         
+cbdbo                39.94a         
+cbg                -139.9a          
+cbgbo              -139.9a          
+cbs                  -1.062f        
+cbsbo                -1.062f        
+cdb                -453.1a          
+cdd                   3.673f        
+cddbo               197.2a          
+cdg                  -6.076f        
+cdgbo                -2.601f        
+cds                   2.857f        
+cdsbo                 2.857f        
+cgb                -100.4a          
+cgd                  -3.613f        
+cgdbo              -137.1a          
+cgg                  13.18f         
+cggbo                 6.228f        
+cgs                  -9.468f        
+cgsbo                -5.991f        
+cjd                   0             
+cjs                   0             
+covlgb                0             
+covlgd                3.475f        
+covlgs                3.477f        
+csb                -608.7a          
+csd                 -99.97a         
+csg                  -6.964f        
+css                   7.673f        
+fug                 180.4G          
+gbd                  13.6p          
+gbs                   9.445p        
+gds                   2.945m        
+gm                   14.94m         
+gmb                   2.56m         
+gmbs                  2.56m         
+gmoverid              5.301         
+ibe                  -1.329p        
+ibulk              -990f            
+id                    2.819m        
+idb                   3.235p        
+ide                   2.819m        
+ids                   2.819m        
+igb                 221.2a          
+igbacc              221.2a          
+igbinv               18.34z         
+igcd                  3.267n        
+igcs                  3.81n         
+igd                 667.5p          
+igdt                 11.27n         
+ige                  11.27n         
+igidl                 0             
+igisl                 0             
+igs                   3.528n        
+isb                 129.8f          
+ise                  -2.819m        
+isub                  8.607z        
+pwr                 882.6u          
+qb                   -1.813f        
+qbi                  -1.813f        
+qd                 -764.9a          
+qdi                -764.9a          
+qg                    3.706f        
+qgdovl               42.32a         
+qgi                   3.706f        
+qgsovl               82.48a         
+qjd                   0             
+qjs                   0             
+qs                   -1.128f        
+qsi                  -1.128f        
+rdeff                 3.278         
+region                2             
+reversed              0             
+rgate               172.8           
+rgbd                  0             
+ron                 117.7           
+rout                339.5           
+rseff                 3.278         
+self_gain             5.073         
+ueff                 24.73m         
+vbs                  -3.873m        
+vdb                 335.5m          
+vds                 331.6m          
+vdsat               157.7m          
+vdss                157.7m          
+vearly              956.9m          
+vgb                 650m            
+vgd                 314.5m          
+vgs                 646.1m          
+vgt                 231.6m          
+vsat_marg           173.9m          
+vsb                   3.873m        
+vth                 414.5m          
+
+signal                 OP("M2.rsb" "??")      OP("M2.rs" "??")       OP("M2.rg" 
+"??")       OP("M2.rdb" "??")      OP("M2.rd" "??")       OP("M2.rb" "??")   
+i                         15.5f                  -2.819m                11.27n  
+                1.342p                 2.819m                -2.687p            
+ 
+pwr                        6.581e-27             10.92u                  2.798f 
+               49.34y                  3.361u               804.2y              
+ 
+res                       27.4                    1.374                 22.01   
+               27.4                  423.1m                 111.4               
+ 
+v                        424.6f                  -3.873m               248.1n   
+               36.77p                  1.192m              -299.3p              
+ 
+
+signal                 OP("M2.dss" "??")      OP("M2.dsg" "??")      OP("M2.ddg"
+ "??")      OP("M2.ddd" "??")  
+cap                        2.438f                 1.27a                  1.122a 
+                2.154f             
+capp                     123a                     4.879f                 3.807f 
+              121.4a               
+cd                         2.561f                 4.881f                 3.808f 
+                2.275f             
+ctotal                     2.561f                 4.881f                 3.808f 
+                2.275f             
+gd                        35.02e-165             18.24e-168              6.749e-
+162            12.96e-159          
+i                         -1.022a                -5.528a                -5.528a 
+               -1.022a             
+pwr                        3.956z                21.41z                  1.855a 
+              342.7z               
+qd                        -9.926a               -18.93a                 -1.445f 
+             -807.7a               
+region                     1                      1                      0      
+                0                  
+res                       28.56e162              54.83e165             148.2e159
+               77.17e156           
+resp                   in                     in                     in         
+            in                     
+v                         -3.873m                -3.873m              -335.5m   
+             -335.5m               
+vdio                      -3.873m                -3.873m              -335.5m   
+             -335.5m               
+
+signal                 OP("M2.cgs_m" "??")    OP("M2.cgd_m" "??")    OP("M2.cds_
+m" "??")
+cap                        1.491f               770.3a                   2.478f 
+            
+
+signal            OP("/M11" "??")
+beff                236.8m          
+betaeff             133.9m          
+cbb                   1.178f        
+cbd                  49.03a         
+cbdbo                49.03a         
+cbg                -211a            
+cbgbo              -211a            
+cbs                  -1.016f        
+cbsbo                -1.016f        
+cdb                -353.8a          
+cdd                   3.349f        
+cddbo              -112.6a          
+cdg                  -5.519f        
+cdgbo                -2.057f        
+cds                   2.524f        
+cdsbo                 2.524f        
+cgb                -297.9a          
+cgd                  -3.216f        
+cgdbo               246.1a          
+cgg                  12.27f         
+cggbo                 5.329f        
+cgs                  -8.754f        
+cgsbo                -5.278f        
+cjd                   0             
+cjs                   0             
+covlgb                0             
+covlgd                3.462f        
+covlgs                3.477f        
+csb                -526.5a          
+csd                -182.6a          
+csg                  -6.538f        
+css                   7.247f        
+fug                 158G            
+gbd                  28.53p         
+gbs                   9.88p         
+gds                   1.38m         
+gm                   12.18m         
+gmb                   1.995m        
+gmbs                  1.995m        
+gmoverid              8.637         
+ibe                  -5.511p        
+ibulk                -4.996p        
+id                    1.41m         
+idb                   6.81p         
+ide                   1.41m         
+ids                   1.41m         
+igb                 514.3a          
+igbacc              514.3a          
+igbinv                5.206z        
+igcd                  1.289n        
+igcs                  1.453n        
+igd                 785f            
+igdt                  4.713n        
+ige                   4.713n        
+igidl                 0             
+igisl                 0             
+igs                   1.97n         
+isb                  66.56f         
+ise                  -1.41m         
+isub                  1.721p        
+pwr                 707.4u          
+qb                   -1.774f        
+qbi                  -1.774f        
+qd                 -442.7a          
+qdi                -442.7a          
+qg                    2.939f        
+qgdovl                3.253a        
+qgi                   2.939f        
+qgsovl               65.74a         
+qjd                   0             
+qjs                   0             
+qs                 -722a            
+qsi                -722a            
+rdeff                 3.278         
+region                2             
+reversed              0             
+rgate               172.8           
+rgbd                  0             
+ron                 362.1           
+rout                724.9           
+rseff                 3.278         
+self_gain             8.831         
+ueff                 25.07m         
+vbs                  -1.936m        
+vdb                 512.7m          
+vds                 510.8m          
+vdsat               118.6m          
+vdss                118.6m          
+vearly                1.022         
+vgb                 513.3m          
+vgd                 596.1u          
+vgs                 511.4m          
+vgt                 109.1m          
+vsat_marg           392.2m          
+vsb                   1.936m        
+vth                 402.2m          
+
+signal                  OP("M11.rsb" "??")      OP("M11.rs" "??")       OP("M11.
+rg" "??")       OP("M11.rdb" "??")      OP("M11.rd" "??")       OP("M11.rb" "??"
+)   
+i                           7.751f                 -1.409m                  4.71
+2n                  2.051p                  1.409m                 -7.586p      
+        
+pwr                         1.646e-27               2.729u                488.8a
+                  115.2y                  840.2n                    6.41z       
+        
+res                        27.4                     1.374                  22.01
+                   27.4                   423.1m                  111.4         
+        
+v                         212.4f                   -1.936m                103.7n
+                   56.19p                 596.2u                 -845p          
+        
+
+signal                  OP("M11.dss" "??")      OP("M11.dsg" "??")      OP("M11.
+ddg" "??")      OP("M11.ddd" "??")  
+cap                         2.44f                   1.271a                  1.06
+6a                  2.047f              
+capp                      123a                      4.888f                  3.40
+8f                120.7a                
+cd                          2.563f                  4.889f                  3.40
+9f                  2.168f              
+ctotal                      2.563f                  4.889f                  3.40
+9f                  2.168f              
+gd                         32.49e-165              16.92e-168               6.38
+7e-159             12.26e-156           
+i                          -1.022a                 -5.528a                 -5.52
+8a                 -1.022a              
+pwr                         1.978z                 10.7z                    2.83
+4a                523.8z                
+qd                         -4.965a                 -9.474a                 -2.08
+3f                 -1.201f              
+region                      1                       1                       0   
+                    0                   
+res                        30.78e162               59.09e165              156.6e
+156                81.55e153            
+resp                    in                      in                      in      
+                in                      
+v                          -1.936m                 -1.936m               -512.7m
+                 -512.7m                
+vdio                       -1.936m                 -1.936m               -512.7m
+                 -512.7m                
+
+signal                  OP("M11.cgs_m" "??")    OP("M11.cgd_m" "??")    OP("M11.
+cds_m" "??")
+cap                         1.491f                770.3a                    2.47
+8f              
