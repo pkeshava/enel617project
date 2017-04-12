@@ -29,11 +29,12 @@
 \usepackage[backend=bibtex, firstinits=false, style=ieee]{biblatex}
 \addbibresource{Bibliog.bib}
 \usepackage{verbatim}                                                           % Does things verbatim?? For example \verbatiminput{appendices/GuitarTunerApp.mc}. Also adds \begin{comment}. Also reporduces text verbatum
+\usepackage{pdflscape}                                                          % For landscape pages
 %-------------------------------------------------------------------------------
 %----------------------------------------------------------------------------------------
 %	DOCUMENT TITLE PAGE
 %----------------------------------------------------------------------------------------
-\title{\textsc{\textbf{617 WINTER 2017 PROJECT REPORT}}} % Title
+\title{\textsc{\textbf{ENEL 617 WINTER 2017 PROJECT REPORT}}} % Title
 \author{\textsc{Millimeter-Wave Double Balanced Gilbert Mixer}
 \\ \textsc{Pouyan Keshavarzian}}
 \date{\today} % Date for the reports
@@ -153,9 +154,58 @@ This creates the time-domain multiplication function. FIGURES X DEMOSTRATE THIS 
 
 \subsection{Detailed Analysis}
 
-\section{Simulated Results}
 
 \newpage
+\begin{landscape}
+
+\section{Design Variations and Final Circuit Schematic}
+\subsection{Circuit Schematic}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=1.5\textwidth] {Figures/Circuit.png}
+  \caption{Final Design}
+    \label{fig:finalschem}
+\end{figure}
+\end{landscape}
+
+\newpage
+\section{Simulated Results}
+\subsection{Transistor Biasing and Power Consumption}
+\subsection{Conversion Gain}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.95\textwidth] {Plots/Gain.jpg}
+  \caption{Swept Gain for Lo and Hi IF}
+    \label{fig:matgain}
+\end{figure}
+\subsection{Input and Output Matching}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.95\textwidth] {Plots/S11.jpg}
+  \caption{Final Return Loss of RF Port}
+    \label{fig:matS11}
+\end{figure}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.95\textwidth] {Plots/S22.jpg}
+  \caption{Final Return Loss of IF Port}
+    \label{fig:matS11}
+\end{figure}
+
+\subsection{Noise Figure}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.95\textwidth] {Plots/NF.jpg}
+  \caption{Final NF}
+    \label{fig:matNF}
+\end{figure}
+
+\subsection{P1dB \& IP3}
+Write some stuff about this... 
+\newpage
+\section{Discussion}
+
 %----------------------------------------------------------------------------------------
 %	REFERENCES
 %----------------------------------------------------------------------------------------
