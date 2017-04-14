@@ -18,7 +18,7 @@
 \usepackage[toc]{glossaries}                                                    % Create glossary
 \usepackage[titletoc]{appendix}                                                 % Create Appendix
 \usepackage{wrapfig}                                                            % Needed for wrapping text around a figure
-\usepackage{subfigure}                                                          % Subfigures
+\usepackage{subfig}                                                          % Subfigures
 %\usepackage[]{mcode}                                                           % Matlab code
 \setlength\parindent{0pt}                                                       % Removes all indentation from paragraphs
 \providecommand{\e}[1]{\ensuremath{\times 10^{#1}}}                             % Use scientific notation
@@ -30,6 +30,7 @@
 \addbibresource{Bibliog.bib}
 \usepackage{verbatim}                                                           % Does things verbatim?? For example \verbatiminput{appendices/GuitarTunerApp.mc}. Also adds \begin{comment}. Also reporduces text verbatum
 \usepackage{pdflscape}                                                          % For landscape pages
+
 %-------------------------------------------------------------------------------
 %----------------------------------------------------------------------------------------
 %	DOCUMENT TITLE PAGE
@@ -168,10 +169,87 @@ This creates the time-domain multiplication function. FIGURES X DEMOSTRATE THIS 
     \label{fig:finalschem}
 \end{figure}
 \end{landscape}
-
 \newpage
+At first the circuit was designed with a 1.8V power supply and a current mirror for biasing
+as seen in figure X. However, this topology was causing many problems. First of all, node X
+had to be maintained at $\approx$ 0.4V for the current mirror to function properly. This was
+causing a lot of problems because of voltage headroom and being able to design for a $V_{od}$
+of $\approx$ 0.1V while also staying under the power budget of 5mW. Therefore after (many weeks)
+of using that topology, I realized I could scrap the current mirror and lower the voltage.
+This then allowed me to increase the widths of the transistor, therefore increases the transconductance
+while still staying below the allotted power budget. The original transconductance was around 5mA/V while,
+as mentioned, the overdrive voltage was around 50mV (not good). After the supply voltage/topology change
+was implemented the transconductance achieved was WHAT NUMBA as shown in table BLAH
+At first, an output resistance of 730$\Omega$
+was chosen to give approximately 5dB of gain based on fig REF. However, it was decided that it would
+be unusual to have such a high output impedance since in practice this device would need to interface
+with other components (PA). Therefore the target was reduced to 50$\Omega$. The reduction in gain was
+somewhat compensated by the fact that I was now able to get a bigger gm with the reduced power supply.
+
+
+
 \section{Simulated Results}
+\begin{table}[H]
+  \small
+  \centering
+  \caption{Experiment Results-I}
+  \subfloat[RF Transistors]{%
+    \hspace{.5cm}%
+    \begin{tabular}{|c|c|}
+      \hline
+      \textbf{Parameter} & \textbf{Value} \\
+      \hline
+      \hline
+      $I_D$ &  2.819mA \\
+      \hline
+      $C_{gs}$ &  9.468fF \\
+      \hline
+      $C_{gd}$ &  3.613fF \\
+      \hline
+      $g_m$ &  14.94mA/V \\
+      \hline
+      $V_{ds}$ &  331mV \\
+      \hline
+      $V_{gs}$ &  646mV \\
+      \hline
+      $V_{th}$ &  414mV \\
+      \hline
+      \hline
+    \end{tabular}%
+    \hspace{.5cm}%
+  }\hspace{1cm}
+  \subfloat[LO Transistors]{%
+    \hspace{.5cm}%
+    \begin{tabular}{|c|c|}
+      \hline
+      \textbf{Parameter} & \textbf{Value} \\
+      \hline
+      \hline
+      $I_D$ &  1.409mA \\
+      \hline
+      $C_{gs}$ &  8.754fF \\
+      \hline
+      $C_{gd}$ &  3.216fF \\
+      \hline
+      $g_m$ &  12.18mA/V \\
+      \hline
+      $V_{ds}$ &  510mV \\
+      \hline
+      $V_{gs}$ &  511mV \\
+      \hline
+      $V_{th}$ &  402mV \\
+      \hline
+      \hline
+    \end{tabular}%
+    \hspace{.5cm}%
+  }
+\end{table}
+
+Overdrive voltage for LO transistors was lower than RF transistors. This is because it was important
+that the LO transistors would fall into Triode and Cutoff when Max/Min LO was used and the overdrive
+voltage for the RF transistors was designed high to get high transconductance while still remaining in saturation.
 \subsection{Transistor Biasing and Power Consumption}
+
 \subsection{Conversion Gain}
 \begin{figure}[H]
   \centering
@@ -202,9 +280,11 @@ This creates the time-domain multiplication function. FIGURES X DEMOSTRATE THIS 
 \end{figure}
 
 \subsection{P1dB \& IP3}
-Write some stuff about this... 
+Write some stuff about this...
 \newpage
 \section{Discussion}
+\subsection{Future Improvements}
+
 
 %----------------------------------------------------------------------------------------
 %	REFERENCES
