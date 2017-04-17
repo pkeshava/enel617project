@@ -77,7 +77,7 @@ and the achieved final results are outlined in Table ~\ref{table:goalsnresults}.
     \hline
     Power Consumption & 5mW & $\approx$ \textbf{\textcolor{OliveGreen}{4.8mW}}\\
     \hline
-    Gain (dB)   & 5.4 & $\approx$ \textbf{\textcolor{Red}{-13 dB}} \\
+    Gain (dB)   & 5 & $\approx$ \textbf{\textcolor{Red}{-13 dB}} \\
     \hline
     Input Match  & 50$\Omega$ & \textbf{\textcolor{OliveGreen}{45.5 + j0.1$\Omega$}} \\
     \hline
@@ -93,7 +93,8 @@ and the achieved final results are outlined in Table ~\ref{table:goalsnresults}.
   \caption{Mixer Design Goals}
   \label{table:goalsnresults}
 \end{table}
-The original values were generated based on a few simple simulations/calculations and a power budget provided by Dr. Belostotski. Once the Id-gm
+The original values were generated based on a few simple simulations/calculations and a power budget provided by Dr. Belostotski. The
+power budget was the control variable that I set as an absolute requirement.  Once the Id-gm
 characteristics were understood from simulation, the gain estimate was calculated using the following equation.
 \begin{equation}
   \label{eq:idealgain}
@@ -151,10 +152,44 @@ For the purposes of design we will simulate with just a $1.5GHz$ signal to demon
 
 The Gilbert Cell is a linear time-varying circuit. The concept behind this circuit is intuitive. The RF transistors act as
 transconductance amplifiers which change the input voltage to a current. The differential ports act as switches that commutate the output.
-This creates the time-domain multiplication function. FIGURES X DEMOSTRATE THIS CONCEPT.
+This creates the time-domain multiplication function. Figure \ref{fig:simpmix} demonstrates this concept.
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.3\textwidth] {Figures/gilbertSimple}
+  \caption{Mixer Theory}
+    \label{fig:simpmix}
+\end{figure}
 
-\subsection{Detailed Analysis}
+Since the Gilbert Cell is a double balanced i.e. both RF and LO inputs are differential, the feedthroughs get subtracted out at IF therefore
+there should be very little of the RF and LO frequencies at the output.
 
+\subsection{RF Port Matching}
+Originally, as mentioned, the RF port was going to be matched with a 50 ohm source resistor. After understanding that the
+matching of this circuit could be designed using the same methodology as a source-degenerated LNA topology and also encountering
+voltage headroom problems, it became apparent that using source and gate inductors to match was the best option. The source inductor is used to match to 50 ohm
+and the source and gate inductors combined are used to resonate out $C_{gs}$ (and in the case of high frequency many other parasitics).
+\begin{equation}
+  \label{eq:InputRes}
+  50 \Omega = \omega_TLs
+\end{equation}
+\begin{equation}
+  \label{eq:GateInd}
+  \dfrac{1}{w(sC_{gs}+C_{others})} = \omega(L_s+L_g)
+\end{equation}
+
+For 65nm technology $\omega_T \approx 2\pi \times \omega_T$ REF. This is derived by assuming that impedance looking into the common gate (LO) stage is high,
+it also ignores all other capacitances and $g_ds$ of RF transistors. \\
+
+This method is greatly oversimplified for an 80GHz circuit, seeing as there are parasitic capacitances and finite output resistance. Therefore an attempt is made to create an improved input impedance model. Then initial values
+are calculated using both models. After the simulated values are finalized there is a discussion outlining whether the improved model was useful.
+
+\subsection{IF Port Matching}
+ The output matching circuit was originally conceived to be resistive. Again, after I actually learned how to design this circuit,
+ it became clear that an LC tank was required. Therefore the tank was designed to resonate at the desired frequency and the resistive
+ load chosen to meet the output impedance requirement. As will be discussed in the simulation section, none of these values were as expected
+ because of finite $g_{ds}$ and parasitics.
+
+\subsection{Conversion Gain}
 
 \newpage
 \begin{landscape}
@@ -175,7 +210,9 @@ as seen in figure X. However, this topology was causing many problems. First of 
 had to be maintained at $\approx$ 0.4V for the current mirror to function properly. This was
 causing a lot of problems because of voltage headroom and being able to design for a $V_{od}$
 of $\approx$ 0.1V while also staying under the power budget of 5mW. Therefore after (many weeks)
-of using that topology, I realized I could scrap the current mirror and lower the voltage.
+of using that topology, I realized I could scrap the current mirror and lower the voltage. An LC
+tank was also added to increase voltage headroom and it later became apparent that those components would
+also be required for output matching because of all the parasitics present.
 This then allowed me to increase the widths of the transistor, therefore increases the transconductance
 while still staying below the allotted power budget. The original transconductance was around 5mA/V while,
 as mentioned, the overdrive voltage was around 50mV (not good). After the supply voltage/topology change
@@ -185,7 +222,6 @@ was chosen to give approximately 5dB of gain based on fig REF. However, it was d
 be unusual to have such a high output impedance since in practice this device would need to interface
 with other components (PA). Therefore the target was reduced to 50$\Omega$. The reduction in gain was
 somewhat compensated by the fact that I was now able to get a bigger gm with the reduced power supply.
-
 
 
 \section{Simulated Results}
@@ -207,6 +243,8 @@ somewhat compensated by the fact that I was now able to get a bigger gm with the
       $C_{gd}$ &  3.613fF \\
       \hline
       $g_m$ &  14.94mA/V \\
+      \hline
+      $g_{ds}$ &  2.94mA/V \\
       \hline
       $V_{ds}$ &  331mV \\
       \hline
@@ -233,6 +271,8 @@ somewhat compensated by the fact that I was now able to get a bigger gm with the
       \hline
       $g_m$ &  12.18mA/V \\
       \hline
+      $g_{ds}$ &  1.38mA/V \\
+      \hline
       $V_{ds}$ &  510mV \\
       \hline
       $V_{gs}$ &  511mV \\
@@ -258,6 +298,26 @@ voltage for the RF transistors was designed high to get high transconductance wh
     \label{fig:matgain}
 \end{figure}
 \subsection{Input and Output Matching}
+\subsubsection{Theory}
+As previously discussed, the source degenerated topology input impedance is defined by the
+simple circuit seen below.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.3\textwidth] {Figures/zin}
+  \caption{Simplified Input Impedance}
+    \label{fig:zinSimple}
+\end{figure}
+
+From this model, Initial values of 50pH and 370pH are picked based on the simulated bias value of
+$C_{gs}$.
+
+Now, if we were to use the improved model of input impedance than we choose.
+
+After itterative simulation the values OF VALUES were picked. Which model was more accurate!
+
+\subsubsection{Results}
+Excellent matching is achieved as shown in Figure ~\ref{fig:matS11}
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.95\textwidth] {Plots/S11.jpg}
@@ -268,9 +328,11 @@ voltage for the RF transistors was designed high to get high transconductance wh
   \centering
   \includegraphics[width=0.95\textwidth] {Plots/S22.jpg}
   \caption{Final Return Loss of IF Port}
-    \label{fig:matS11}
+    \label{fig:matS22}
 \end{figure}
 
+The matching for the LO ports is simply done with 2 $50 \Omega$ resistors. Simulations
+showed almost infinitely small return loss as expected.
 \subsection{Noise Figure}
 \begin{figure}[H]
   \centering
