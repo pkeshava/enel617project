@@ -26,7 +26,7 @@
 \usepackage{pdfpages}                                                           % Simplifies inclusion of external multi-page pdfs into document
 \loadglsentries[main]{glossary}                                                 % Glossary
 \makeglossaries
-\usepackage[backend=bibtex, firstinits=false, style=ieee]{biblatex}
+\usepackage[backend=bibtex, firstinits=false, style=numeric-comp]{biblatex}
 \addbibresource{Bibliog.bib}
 \usepackage{verbatim}                                                           % Does things verbatim?? For example \verbatiminput{appendices/GuitarTunerApp.mc}. Also adds \begin{comment}. Also reporduces text verbatum
 \usepackage{pdflscape}                                                          % For landscape pages
@@ -63,7 +63,7 @@
 \section{PROJECT MOTIVATION}
 In this project, I present a double balanced mixer that would be used as part of a  BPSK Modulator circuit
 to generate a spread spectrum radar waveform in the automotive frequency band (77-81 GHz). A similar modulator
-that uses a double-balanced mixer is described in [CITE]. The original design benchmarks for this mixer
+that uses a double-balanced mixer is described in \cite{schleicher2010biphase}. The original design benchmarks for this mixer
 and the achieved final results are outlined in Table ~\ref{table:goalsnresults}.\vspace{3mm}
 \vspace{3mm}
 \begin{table}[H]
@@ -104,12 +104,12 @@ The exact values including plots for the final results will be clearly outlined.
 will be described in detail. A different design topology was used in the final design than in the original biased circuit used to calculate
 the conversion gain. Some targets (such as output impedance) were changed intentionally (for practical purposes) while other values
 were adjusted based on non-ideal aspects of the circuit.\vspace{3mm}
-A derivation of Equation ~\ref{eq:idealgain} will be provided in the theory of operation section. A suitable value of $R_L$ was chosen
+A derivation of conversion gain will be provided in the theory of operation section. A suitable value of $R_L$ was chosen
 based on biasing and achieving high gain. This value, and others, deviate greatly from the final design. A thorough explanation of the
 reasons for deviating are provided.
 The interest in this particular-type of radar stems from spread-spectrum technology's built in interference rejection, which
 is an indispensable feature for automotive radar. This type of radar has recently been demonstrated in
-SiGe technology [CITE]. 65nm technology is chosen because the Figure of Merit, $f_T \approx 160GHz $, making it suitable for
+SiGe technology \cite{trotta200779ghz, ng2014fully}. 65nm technology is chosen because the Figure of Merit, $f_T \approx 160GHz $, making it suitable for
 this millimeter-wave application.
 
 \subsection{Radar Theory of Operation}
@@ -177,20 +177,60 @@ and the source and gate inductors combined are used to resonate out $C_{gs}$ (an
   \dfrac{1}{w(sC_{gs}+C_{others})} = \omega(L_s+L_g)
 \end{equation}
 
-For 65nm technology $\omega_T \approx 2\pi \times \omega_T$ REF. This is derived by assuming that impedance looking into the common gate (LO) stage is high,
+\vspace{3mm}For 65nm technology $\omega_T \approx 2\pi \times \omega_T$ \cite{Razavi:2011:RM:2132691}. This is derived by assuming that impedance looking into the common gate (LO) stage is high,
 it also ignores all other capacitances and $g_ds$ of RF transistors. \\
 
 This method is greatly oversimplified for an 80GHz circuit, seeing as there are parasitic capacitances and finite output resistance. Therefore an attempt is made to create an improved input impedance model. Then initial values
 are calculated using both models. After the simulated values are finalized there is a discussion outlining whether the improved model was useful.
 
 \subsection{IF Port Matching}
- The output matching circuit was originally conceived to be resistive. Again, after I actually learned how to design this circuit,
- it became clear that an LC tank was required. Therefore the tank was designed to resonate at the desired frequency and the resistive
- load chosen to meet the output impedance requirement. As will be discussed in the simulation section, none of these values were as expected
- because of finite $g_{ds}$ and parasitics.
+The output matching circuit was originally conceived to be resistive. Again, after I actually learned how to design this circuit,
+it became clear that an LC tank was required. Therefore the tank was designed to resonate at the desired frequency and the resistive
+load chosen to meet the output impedance requirement. As will be discussed in the simulation section, none of these values were as expected
+because of finite $g_{ds}$ and parasitics.
 
 \subsection{Conversion Gain}
+As previously mentioned, the LO differential pairs essentially act as switches. Thereby allowing current to flow through resistors $R_1$
+and $R_2$. Therefore we have:
+\begin{equation}
+  \label{eq:I1}
+  I_1 = I_{RF}F_{T}
+\end{equation}
+and
+\begin{equation}
+  \label{eq:I2}
+  I_2 = I_{RF}F_{T}(t-\dfrac{T_{LO}}{2})
+\end{equation}
 
+where $F_{T}$ is the square wave with period $T_{LO}$. Therefore the voltage at IF is equal to:
+
+\begin{equation}
+  \label{eq:VIF}
+  V_{IF} = V_{DD} - I_1R_L - (V_{DD}-I_2R_L)
+\end{equation}
+\begin{equation}
+  \label{eq:VIFt}
+  V_{IF}(t) = I_{RF}(t)[F_{T}(t-\dfrac{T_{LO}}{2})-F_{T}]
+\end{equation}
+
+\vspace{5mm}Since $F_T$ is a square wave it can be seen that multipling by $F_{T}(t-\dfrac{T_{LO}}{2})-F_{T}$
+is the same as multiplying by a square wave with amplitudes ranging from 1 to -1. Using the Fourier
+expansion of this square wave we have
+
+\begin{equation}
+  \label{eq:VIFt2}
+  V_{IF}(t) = I_{RF}(t)R_L[\dfrac{4}{\pi}cos(\omega_{LO}t)...]
+\end{equation}
+\begin{equation}
+  \label{eq:VIFt3}
+  V_{IF}(t) = \dfrac{2}{\pi}g_{m1}R_LV_{RF}cos((\omega_{RF}-\omega_{LO})t)
+\end{equation}
+The peak conversion gain is then:
+\begin{equation}
+  \label{eq:Vgain}
+  \dfrac{V_{IF,p}}{V_{RF,p}} = \dfrac{2}{\pi}g_{m1}R_L
+\end{equation}
+If you have a source resistor then the gain drops proportionally, arriving at Equation ~\ref{eq:idealgain}.
 \newpage
 \begin{landscape}
 
@@ -205,6 +245,39 @@ are calculated using both models. After the simulated values are finalized there
 \end{figure}
 \end{landscape}
 \newpage
+
+\begin{table}[H]
+\centering
+ \begin{tabular}{ | c | c |}
+   \hline
+    \textbf{Component} & \textbf{Final Values}   \\
+    \hline
+    \hline
+    $W$, Transistor Width & $14 \mu H$ \\
+    \hline
+    $L$, Transistor Length & $65nm$ \\
+    \hline
+    $L_s$, Source Inductor & $65pH$ \\
+    \hline
+    $L_g$, Gate Inductor & $240pH$ \\
+    \hline
+    $R_L$, Source Resistance & $65\Omega$ \\
+    \hline
+    $L_T$, Tank Inductor & $130pH$ \\
+    \hline
+    $C_T$, Tank Capacitor & $3pF$ \\
+    \hline
+    $C_c$, DC block/AC Short Cap & $100pF$ \\
+    \hline
+    $V_{bias,LO}$ & 0.85V \\
+    \hline
+    $V_{bias,RF}$ & 0.64V \\
+    \hline
+  \end{tabular}
+  \caption{Mixer Final Component Values}
+  \label{table:finalvals}
+\end{table}
+
 At first the circuit was designed with a 1.8V power supply and a current mirror for biasing
 as seen in figure X. However, this topology was causing many problems. First of all, node X
 had to be maintained at $\approx$ 0.4V for the current mirror to function properly. This was
@@ -286,7 +359,7 @@ somewhat compensated by the fact that I was now able to get a bigger gm with the
 \end{table}
 
 Overdrive voltage for LO transistors was lower than RF transistors. This is because it was important
-that the LO transistors would fall into Triode and Cutoff when Max/Min LO was used and the overdrive
+that the LO transistors would fall into triode and cutoff with the corresponding LO swing. The overdrive
 voltage for the RF transistors was designed high to get high transconductance while still remaining in saturation.
 \subsection{Transistor Biasing and Power Consumption}
 
@@ -294,7 +367,7 @@ voltage for the RF transistors was designed high to get high transconductance wh
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.95\textwidth] {Plots/Gain.jpg}
-  \caption{Swept Gain for Lo and Hi IF}
+  \caption{Swept Gain for Lo/Hi IF}
     \label{fig:matgain}
 \end{figure}
 \subsection{Input and Output Matching}
@@ -309,12 +382,17 @@ simple circuit seen below.
     \label{fig:zinSimple}
 \end{figure}
 
-From this model, Initial values of 50pH and 370pH are picked based on the simulated bias value of
-$C_{gs}$.
+From this model, Initial values of 50pH and 370pH are picked based on the simulated bias value of $C_{gs}$.
+As a side exercise, an attempt at producing an analytical improved impedance model for the cascode which considers $g_{ds}$
+and $C_{gd}$ of both transistors was done and is shown in Appendix ~\ref{app:imp}.
+This model was then used in Matlab with chosen values of $L_s$ in an attempt to get an optimized value as opposed to the value produced
+by the simplified source degenerated cadcode LNA model. In theory, once values of $L_s$ were analyzed then a more accurate value of $L_g$ could
+also be chosen based on the remaining reactance. However the values produced by this model and Matlab did not seem to be any closer
+than the original model. In the end, changes the values based on simulation seemed to be the best method.\\
 
-Now, if we were to use the improved model of input impedance than we choose.
-
-After itterative simulation the values OF VALUES were picked. Which model was more accurate!
+After iterative simulation the values of $Ls = 65pH$ and $L_g = 240pH$ were picked as shown in Table ~\ref{table:finalvals}.
+These are relatively close to the original guess. It is intuitive that both inductances would be higher because of all the additional
+parasitic capacitances. 
 
 \subsubsection{Results}
 Excellent matching is achieved as shown in Figure ~\ref{fig:matS11}
@@ -410,6 +488,7 @@ Write some stuff about this...
     \label{fig:cS22}
 \end{figure}
 
+\section{Improved Impedance Model}\label{app:imp}
 
 \end{appendices}
 
