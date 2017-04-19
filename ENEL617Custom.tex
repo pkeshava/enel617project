@@ -90,7 +90,7 @@ and the achieved final results are outlined in Table ~\ref{table:goalsnresults}.
     IP3 & -- & $\approx$ 9.5dB  \\
     \hline
   \end{tabular}
-  \caption{Mixer Design Goals}
+  \caption{Mixer Design Targets and Achieved}
   \label{table:goalsnresults}
 \end{table}
 The original values were generated based on a few simple simulations/calculations and a power budget provided by Dr. Belostotski. The
@@ -105,7 +105,7 @@ will be described in detail. A different design topology was used in the final d
 the conversion gain. Some targets (such as output impedance) were changed intentionally (for practical purposes) while other values
 were adjusted based on non-ideal aspects of the circuit.\vspace{3mm}
 A derivation of conversion gain will be provided in the theory of operation section. A suitable value of $R_L$ was chosen
-based on biasing and achieving high gain.\\
+based on biasing and achieving high gain.
 The interest in this particular-type of radar stems from spread-spectrum technology's built in interference rejection, which
 is an indispensable feature for automotive radar. This type of radar has recently been demonstrated in
 SiGe technology \cite{trotta200779ghz, ng2014fully}. 65nm technology is chosen because the Figure of Merit, $f_T \approx 160GHz $, making it suitable for
@@ -154,7 +154,7 @@ For the purposes of design we will simulate with just a $1.5GHz$ signal to demon
 \subsection{Basic Principle}
 
 The Gilbert Cell is a linear time-varying circuit. The concept behind this circuit is intuitive. The RF transistors act as
-transconductance amplifiers which change the input voltage to a current. The LO ports act as switches that commutate the output.
+amplifiers which change the input voltage to a current. The LO ports act as switches that commutate the output.
 This creates the time-domain multiplication function. Figure \ref{fig:simpmix} demonstrates this concept.
 \begin{figure}[H]
   \centering
@@ -163,11 +163,11 @@ This creates the time-domain multiplication function. Figure \ref{fig:simpmix} d
     \label{fig:simpmix}
 \end{figure}
 
-Since the Gilbert Cell is a double balanced i.e. both RF and LO inputs are differential, the signals get subtracted out at IF therefore
-there should be very little of the RF and LO frequencies at the output.
+Since the Gilbert Cell is a double balanced, i.e. both RF and LO inputs are differential, the signals get subtracted out at IF. Therefore,
+there should be very little of the RF and LO frequencies present at the output.
 \subsection{Conversion Gain}
-As previously mentioned, the LO differential pairs essentially act as switches. Thereby allowing current to flow through resistors $R_1$
-and $R_2$. Therefore we have:
+As previously mentioned, the LO differential pairs essentially act as switches thereby allowing current to flow through resistors $R_1$
+and $R_2$.
 \begin{equation}
   \label{eq:I1}
   I_1 = I_{RF}F_{T}
@@ -191,7 +191,7 @@ where $F_{T}$ is the square wave with period $T_{LO}$. The voltage at IF is equa
 
 \vspace{5mm}Since $F_T$ is a square wave it can be seen that multiplying by $F_{T}(t-\dfrac{T_{LO}}{2})-F_{T}$
 is the same as multiplying by a square\vspace{3mm} wave with amplitudes ranging from 1 to -1. Using the Fourier
-expansion of this square wave we have
+expansion of this square wave we get
 
 \begin{equation}
   \label{eq:VIFt2}
@@ -217,7 +217,7 @@ the total bias current can be calculated:
 \end{equation}
 
 \subsection{RF Port Matching}
-Originally, as mentioned, the RF port was going to be matched with a $50 \Omega $ source resistor. After understanding that the
+Originally the RF port was going to be matched with a $50 \Omega $ source resistor. After understanding that the
 matching of this circuit could be designed using the same methodology as a source-degenerated LNA topology and also encountering
 voltage headroom problems, it became apparent that using source and gate inductors to match was the best option. The source inductor is
 used to match to $50\Omega$ and the source and gate inductors combined are used to resonate out $C_{gs}$ (and in the case of high frequency
@@ -233,20 +233,21 @@ many other parasitics).
 
 \vspace{3mm}For 65nm technology $\omega_T \approx 2\pi \times 160GHz$ \cite{Razavi:2011:RM:2132691}.
 This method of calculating input impedance is derived by ignoring the common gate transistor,
-other capacitances and $g_ds$ of the common source (RF) transistor. \\
+other capacitances and $g_{ds}$ of the common source (RF) transistor. \\
 
 This method is greatly oversimplified for an 80GHz circuit, seeing as there are parasitic capacitances and a finite output resistance.
 Therefore an attempt is made to create an improved input impedance model. This is discussed in Section ~\ref{sec:matching}
 
 \subsection{IF Port Matching}
-The output matching circuit was originally conceived to be resistive. Again, after I actually learned how to design this circuit,
-it became clear that an LC tank was required. Therefore the tank was designed to resonate at the desired frequency and the resistive
-load chosen to meet the output impedance requirement. As will be discussed in the simulation section, none of these values were as expected
+The output matching circuit was originally conceived to be resistive. Again, after learning more about the method of designing this circuit and
+the limitations involved, it became clear that an LC tank was required. Therefore the tank was designed to resonate at the desired frequency and the resistive
+load chosen to meet the output impedance requirement. Furthermore to get an output impedance as high as $700\Omega$ a very large resistance would be required. This
+is because $g_{ds}$, which is in parallel with the load resistor, is of a very similar magnitude.  As will be discussed in the simulation section, none of these values were as expected
 because of all the transistor parameters not taken into account.
 
 \subsection{Noise}
 Analyzing noise in active double-balanced mixers is complicated. The same methods studied for LNA noise optimization can be implemented however
-there are other variables that must be considered. As discussed, mixing with a sine wave (as is done in simulation) will increase noise figure.
+there are other variables that must be considered. As will be discussed in later sections, mixing with a sin wave (as is done in simulation) will increase noise figure.
 Furthermore, with this design there are quite a few resistors and no noise optimization is actually considered. Typical SSB of between 10-15dB is
 to be expected for this type of mixer therefore the achieved value seems acceptable.
 
@@ -303,9 +304,9 @@ improvements because of negative feedback.
 
 At first the circuit was designed with a 1.8V power supply and a cascode type current mirror for biasing.
 However, this topology was causing many problems. First of all, the node at the current mirror
-had to be maintained at $\approx$ 0.4V for the current mirror to function properly. Voltage headroom and being able to design for a $V_{od}$
+had to maintain at least $\approx$ 0.4V for the current mirror to function properly. Voltage headroom and being able to design for a $V_{od}$
 of $\approx$ 0.1V while also staying under the power budget of 5mW became an issue. Since, in this configuration,
-the current had to be kept low $V_{ds}$ was high, further exasperating the voltage headroom issue. Furthermore operating at
+the current had to be kept low $V_{ds}$ was high, further aggravating the voltage headroom issue. Furthermore operating at
 1.8V is not advised since that is the breakdown of 65nm technology.\\
 
 \vspace{3mm}
@@ -319,7 +320,8 @@ was $\approx 50mV$. After the topology change it was much easier to achieve an o
 \approx 14mS$. All final values are shown in Table ~\ref{table:parameters}.\\
 \subsection{Output Impedance Change}
 
-At first, an output resistance of 730$\Omega$ was chosen to give approximately 5dB of gain based on ~\ref{eq:idealgain}.
+At first, an output resistance of 730$\Omega$ was chosen to achieve the target gain of approximately 5dB based on calculations using
+Equation ~\ref{eq:idealgain}.
 This was not a very well thought out choice. It would be unusual to have such a high output impedance since the practical
 implementation of this would need to interface with other circuits (namely a PA). Therefore the target was reduced
 to 50$\Omega$. The reduction in gain from this change was somewhat compensated by the fact that $g_m$ is now improved.
@@ -333,7 +335,7 @@ values of $g_m = 14mS$ and $R_L = 50 ohm$
   G = 20\log(\dfrac{2}{\pi}g_mR_L) \approx -7dB
 \end{equation}
 
-\vspace{3mm}\textbf{Note} that this calculation is done with a square wave and those maximizes
+\vspace{3mm}\textbf{Note} that this calculation is done with a square wave which maximizes
 conversion gain. During simulation, mixing is done with a sine wave and so there is a period of time
 where both transistors in the differential pair are on. This reduces gain and increases noise figure.
 We would then expect the simulated gain to be below this calculation. In fact, the gain equation is reduced
@@ -350,7 +352,7 @@ proportionally to $\Delta T$, the time of overlapping drain current waveforms in
 \begin{table}[H]
   \small
   \centering
-  \caption{Experiment Results}
+  \caption{Final Values For DC Analysis}
   \subfloat[RF Transistors]{%
     \hspace{.5cm}%
     \begin{tabular}{|c|c|}
@@ -422,8 +424,8 @@ The total current $I_{DC} = 2.819mA \times 2 = 5.638mA$ gives a power consumptio
     \label{fig:matgain}
 \end{figure}
 The achieved conversion gain (once matched) is slightly lower then the calculated value based on Equation
-~\ref{eq:gaintargetnew} as expected because of the slow switching of the LO transistors.
-
+~\ref{eq:gaintargetnew} as expected because of the slow switching of the LO transistors.\\
+\textbf{Note} RMS spectrum is shown in the Appendix.
 \subsection{Input and Output Matching}\label{sec:matching}
 \subsubsection{Theory}
 As previously discussed, the source degenerated topology input impedance is defined by the
@@ -439,10 +441,10 @@ simple circuit seen below.
 From this model, Initial values of $Ls = 50pH$ and $L_g = 390pH$ are picked based on the simulated bias value of $C_{gs}$.
 As a side exercise, an attempt at producing an analytical improved impedance model for the cascode which considers $g_{ds}$
 and $C_{gd}$ of both transistors was done and is shown in Appendix ~\ref{app:imp}.
-This model was then used in Matlab with chosen values of $L_s$ in an attempt to get an optimized value as opposed to the value produced
-by the simplified source degenerated cadcode LNA model. In theory, once values of $L_s$ were analyzed then a more accurate value of $L_g$ could
-also be chosen based on the remaining reactance. However the values produced by this model and Matlab did not seem to be any closer
-than the original model. In the end, changes the values based on simulation seemed to be the best method.\\
+This model was then used in Matlab with chosen values of $L_s$ in an attempt to get an optimized answer as opposed to the oversimplified number produced
+by the source degenerated cadcode LNA model. In theory, once values of $L_s$ were analyzed then a more accurate value of $L_g$ could
+also be chosen based on the remaining reactance. However the calculations produced by this model and Matlab did not seem to be any closer
+than the original model. In the end, changing the values based on simulation seemed to be the only reliable method.\\
 
 After iterative simulation the values of $Ls = 65pH$ and $L_g = 240pH$ were picked as shown in Table ~\ref{table:finalvals}.
 These are relatively close to the original guess. It would be expected that the final gate inductance value would be lower than
@@ -450,7 +452,14 @@ the initial guess because $C_{others}$ i.e. the parasitics would reduce the valu
 
 \subsubsection{Results}
 Good matching is achieved as shown in Figure ~\ref{fig:matS11}. Several iterations of plotting the impedance on the Smith Chart tool
-in Cadence was used to achieve the required match.
+in Cadence was used to achieve the required input match. The values for the output components are quite different then originally expected. The resistance is
+slightly higher (65 as opposed to 50). This can be explained by noting that $g_{ds}$ of the LO transistor is in parallel with $R_L$ therefore a
+higher Resistor value is needed to achieve $50 \Omega$. The tank was originally designed using
+$$ \omega = \dfrac{1}{\sqrt{LC}}$$
+
+with a chosen value of C = 3pF to start the Inductor value comes out to be approximately 1.3nH. However, after simulated the final value of
+the inductor chose was about 1/10th that value (Note Dr. Belostotski ignore the conversation we had about it being higher... I got it backwards). This
+makes sense because of all the parasitic capacitances that are present. The -10dB bandwidth for both S11 and S22 extends past the entire operating band.
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.95\textwidth] {Plots/S11.jpg}
